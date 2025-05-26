@@ -132,7 +132,7 @@
   <script>
     let insectData = {};
 
-    fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vS1JS6ZF82SlHyyVQeA2TD4gdYdZavgnptHXh5IuH926v1-QNdp5um9Ro1ymSlWlH8_SoRgd2qv2UjI/pub?output=csv")
+    fetch("https://docs.google.com/spreadsheets/d/e/.../pub?output=tsv")
       .then(response => response.text())
       .then(csv => {
         const lines = csv.split("\n");
