@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>This Might Bug You</title>
+  <meta property="og:title" content="This Might Bug You" />
+  <meta property="og:description" content="Choose a mood or mission. Get a bug. Receive a poetic metaphor, a strange fact, and a creative spark." />
+  <meta property="og:image" content="https://create-mjolene.github.io/bug-metaphor-bot/share.jpg" />
+  <meta property="og:url" content="https://create-mjolene.github.io/bug-metaphor-bot/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #faf8f2;
+      margin: 0;
+      padding: 0;
+      color: #330000;
+    }
+    header {
+      text-align: center;
+      padding: 2rem;
+    }
+    header h1 {
+      color: #7b1f1f;
+      font-size: 2.8rem;
+      margin: 0;
+    }
+    header p {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      color: #a15757;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+      background: #fffaf4;
+      border-radius: 16px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+    select {
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: 2px solid #d4a7a7;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+    button {
+      background-color: #7b1f1f;
+      color: white;
+      border: none;
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #5f1717;
+    }
+    .result-box {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .emoji {
+      font-size: 3rem;
+    }
+    .result-details h2 {
+      margin: 0;
+    }
+    .columns {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+    .card {
+      flex: 1;
+      background: #fff;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 0 6px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .icon {
+      font-size: 1.2rem;
+    }
+    @media (max-width: 768px) {
+      .columns {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>This Might Bug You</h1>
+    <p>It's metaphor. It's nature. It's fine.</p>
+  </header>
+
+  <section class="container" style="font-size: 0.95rem; color: #5a4747;">
+    <p><em>This is just for fun—a little practice project to explore my love of creativity, learning about code and building things, and bugs (the insect kind).</em></p>
+    <p>Visit <a href="https://unleashedanduntangled.substack.com" target="_blank" style="color: #7b1f1f; text-decoration: underline;">Unleashed and Untangled</a> to read more of my work.</p>
+    <p style="margin-top: 1rem;">– M.</p>
+  </section>
+
+  <section class="container">
+    <h2>Choose a mood or mission.</h2>
+    <p>Trying to get motivated, make a bold move, or simply avoid becoming a metaphorical dung beetle? You’re in the right place.</p>
+    <form onsubmit="event.preventDefault(); showMetaphor();">
+      <label for="feeling">Select your feeling:</label><br>
+      <select id="feeling"></select><br>
+      <button type="submit">Reveal My Bug</button>
+    </form>
+  </section>
+
+  <div id="output"></div>
+
+  <footer style="text-align: center; padding: 2rem; font-size: 0.8rem; color: #7a6f6f;">
+    <p>This is a personal project created for creative exploration and practice. All content is metaphorical and designed for curious adults who enjoy strange-but-true bug facts, creative thinking, and the occasional ridiculous metaphor.</p>
+  </footer>
+
+  <script>
+    const insectData = {};
+
+    function populateDropdown() {
+      const dropdown = document.getElementById("feeling");
+      const options = Object.keys(insectData);
+      dropdown.innerHTML = "";
+      options.forEach(option => {
+        const el = document.createElement("option");
+        el.value = option;
+        el.textContent = option;
+        dropdown.appendChild(el);
+      });
+    }
+
+    function showMetaphor() {
+      const select = document.getElementById("feeling").value;
+      const matches = insectData[select];
+      if (!matches || matches.length === 0) return;
+      const bug = matches[Math.floor(Math.random() * matches.length)];
+
+      const resultHTML = `
+        <section class="container result-box">
+          <div class="emoji">${bug.emoji}</div>
+          <div class="result-details">
+            <h2>${bug.name}</h2>
+            <p><em>${bug.scientific}</em></p>
+            <p><strong>Your Feeling Companion</strong><br>${bug.nature}</p>
+          </div>
+        </section>
+
+        <section class="container columns">
+          <div class="card">
+            <h3><span class="icon">🍃</span> Poetic Essence</h3>
+            <p>"${bug.poetic}"</p>
+          </div>
+          <div class="card">
+            <h3><span class="icon">🌿</span> Nature’s Wisdom</h3>
+            <p>${bug.nature}</p>
+          </div>
+          <div class="card">
+            <h3><span class="icon">✨</span> Creative Spark</h3>
+            <p>${bug.creative}</p>
+          </div>
+        </section>
+      `;
+      document.getElementById("output").innerHTML = resultHTML;
+    }
+
+    fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vS1JS6ZF82SlHyyVQeA2TD4gdYdZavgnptHXh5IuH926v1-QNdp5um9Ro1ymSlWlH8_SoRgd2qv2UjI/pub?output=tsv")
+      .then(response => response.text())
+      .then(tsv => {
+        const lines = tsv.split("\n").filter(line => line.trim() !== "");
+        const headers = lines[0].split("\t");
+        for (let i = 1; i < lines.length; i++) {
+          const row = lines[i].split("\t");
+          const entry = {};
+          headers.forEach((header, index) => {
+            entry[header.trim()] = row[index] ? row[index].trim().replace(/^"|"$/g, '') : "";
+          });
+          if (!entry.Type) continue;
+          if (!insectData[entry.Type]) insectData[entry.Type] = [];
+          insectData[entry.Type].push({
+            name: entry["Bug Name"],
+            scientific: entry["Scientific Name"],
+            poetic: entry["Poetic Essence"],
+            nature: entry["Nature Fact"],
+            creative: entry["Creative Prompt"],
+            emoji: entry.Emoji || "🐞"
+          });
+        }
+        populateDropdown();
+      });
+  </script>
+</body>
+</html>
