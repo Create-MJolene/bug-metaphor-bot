@@ -141,7 +141,7 @@
           const row = lines[i].split(",");
           const entry = {};
           headers.forEach((header, index) => {
-            entry[header.trim()] = row[index] ? row[index].trim() : "";
+           entry[header.trim()] = row[index] ? row[index].trim().replace(/^"|"$/g, '') : "";
           });
           if (!entry.Type) continue;
           if (!insectData[entry.Type]) insectData[entry.Type] = [];
